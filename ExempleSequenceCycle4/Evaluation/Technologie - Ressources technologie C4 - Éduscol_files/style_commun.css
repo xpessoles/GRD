@@ -1,0 +1,445 @@
+#topbar-cookie-container{
+	display: none;
+	margin-bottom: 80px;
+}
+#topbar-cookie{
+	width:100%;
+	margin:0px;
+	padding:0px;
+	display:block;
+	left:0px;
+	overflow:hidden;
+	z-index:1000;
+}
+#topbar-cookie.disclaimer_top{
+	background-color: #343436;
+	top:0px;
+	position:absolute;
+}
+#topbar-cookie.disclaimer_bottom{
+	background: #343436;
+	background: rgba(52,52,54,0.95);
+	bottom:0px;
+	position:fixed;
+}
+#button-cookie{
+	font-family: Arial,sans-serif; 
+	font-size:12px;
+	font-weight:bold;
+ 	padding: 12px 60px;
+ 	margin:20px;
+ 	float:right;
+	position:relative;
+	color: #ffffff; 
+	background: #606060;
+	border-radius: 4px;
+	cursor:pointer;
+	border:none;
+}
+#button-cookie p {
+	color: #ffffff !important;
+	margin:auto;
+	padding:0;
+}
+#text-cookie{
+	font-family: Arial,sans-serif; 
+	font-size:13px;
+	line-height:18px;
+	float:left;
+	margin-top:20px;
+	margin-left:20px;
+	color:#ffffff !important;
+}
+#text-cookie p {
+	color: #ffffff !important;
+	margin:auto;
+	padding:0;
+}
+#text-cookie a{
+	color:#ffffff !important;
+	text-decoration:underline;
+}
+
+#cookie-men{
+	width:978px;
+	margin:auto;
+}
+#cookie-eduscol{
+	width:980px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#cookie-h2020{
+	width:980px;
+	margin: auto;
+}
+#cookie-recherche{
+	width:980px;
+	margin: auto;
+}
+#cookie-hyperion{
+	width:1200px;
+	margin: auto;
+	padding-right: 15px;
+  padding-left: 15px;
+}
+#cookie-site-fetescience{
+	width:995px;
+	margin: auto;
+}
+#cookie-fetescience{
+	
+}
+#cookie-kwa{
+	width:978px;
+	margin:auto;
+}
+#cookie-minisite{
+	width:980px;
+	margin:auto;
+}
+#content-text-cookie{
+		width: auto;
+	}
+#content-button-cookie{
+	float: right;
+		width: auto;
+	}
+
+/*Media Queries*/
+@media (max-width: 1200px){
+	#cookie-hyperion{
+		width: 100%;
+	}
+	#content-text-cookie{
+		width: 70%;
+	}
+	#content-button-cookie{
+		width: 30%;
+	}
+}
+@media (max-width: 980px){
+	#cookie-eduscol,
+	#cookie-h2020,
+	#cookie-recherche,
+	#cookie-minisite,
+	#cookie-hyperion{
+		width: 100%;
+	}
+	#content-text-cookie{
+		width: 70%;
+	}
+	#content-button-cookie{
+		width: 30%;
+	}
+}
+@media (max-width: 978px){
+	#cookie-men,
+	#cookie-kwa{
+		width: 100%;
+	}
+	#content-text-cookie{
+		width: 70%;
+	}
+	#content-button-cookie{
+		width: 30%;
+	}
+}
+@media (max-width: 995px){
+	#cookie-site-fetescience{
+		width: 100%;
+	}
+	#content-text-cookie{
+		width: 70%;
+	}
+	#content-button-cookie{
+		width: 30%;
+	}
+}
+@media (max-width: 550px){
+	#cookie-eduscol,
+	#cookie-men,
+	#cookie-h2020,
+	#cookie-recherche,
+	#cookie-site-fetescience,
+	#cookie-kwa,
+	#cookie-minisite,
+	#cookie-hyperion{
+		width: 100%;
+	}
+	#content-text-cookie{
+		width: 100%;
+	}
+	#content-button-cookie{
+		width: 30%;
+	}
+}
+@media (max-width: 600px){
+	#cookie-men{
+		width: 100%;
+	}
+	#content-text-cookie{
+		width: 100%;
+	}
+	#content-button-cookie{
+		width: 30%;
+	}
+}
+
+/**************************************
+***    STYLE BlOC SVE "NESTABLE"    ***
+***************************************/
+#sve .zoneBlocItem{
+	clear:both;
+}
+
+#sve .zoneTwoBlocItem{
+	padding: 20px 0;
+}
+
+#sve .itemSve{
+	background-color: #ffffff;
+  width: 47%;
+  min-height:75px;
+  float: left;
+  margin: 5px 20px 15px 0;
+  display:table;
+}
+#sve .itemSve .lien{
+	display: table-row;
+}
+
+#sve .itemSve p{
+	text-transform: uppercase;
+ 	padding: 30px 0px 30px 20px;
+  margin: 0;
+  height: 100%;  
+  list-style: none;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left;
+  /*width: 255px;*/
+}
+
+#sve .itemSve ul{
+	text-transform: uppercase;
+ 	padding:22px 0px 22px 20px;
+  margin: 0;
+  height: 100%;  
+  list-style: none;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left;
+  /*width: 255px;*/
+}
+
+#sve .itemSve ul li, #sve .itemSve p{
+	color: #000000;
+}
+
+#sve .itemSve .imgSve{	   
+    width: 75px;
+    /*line-height: 100px;*/
+    text-align: center;
+    list-style: none;
+    padding:0;
+}
+
+#sve .headerSve{
+	text-align:center;
+}
+
+#sve .headerSve h2{
+	text-transform: uppercase;
+	border:none;	
+	text-align:center;
+	font-size: 250%;
+  font-weight: lighter;
+	color: #ffffff;
+	padding: 20px;
+	margin: 0 50px;
+	margin: 0px;
+	background: none;	
+}
+
+
+#sve .headerSve h2 img{
+	vertical-align: middle;
+}
+
+
+#sve .headerSve h2 span{
+	margin-left:10px;
+	margin-right:10px;
+}
+
+#sve .closeSve a{
+		background: url('../images/bt_close.png') top right no-repeat !important;
+    border: none;
+    width: 17px;
+    height: 19px;
+    display: block;
+    float: right;
+    margin: 15px;
+}
+/*
+#sve .SveSousParent{
+	padding-bottom: 31px;
+}
+*/
+
+#sve .headerSveSousParent {
+		text-transform: uppercase;
+		background-color: #fff;
+    width: 80%;
+    display: inline-block;
+    position: relative;    
+    padding: 15px 15px;
+    text-align: left;
+}
+
+#sve .SveSousParent:last-child{
+	padding-bottom: 31px;
+}
+
+#sve .SveSousParent{	
+	position: relative;
+}
+
+#sve .blocArrow{
+    margin-top: 2px;
+    padding: 0 15px;
+    position: relative;
+    height: 10px;
+}
+
+#sve .SveSousParent .arrow{
+		width: 50px;
+    height: 14px;
+    background: url('../images/sve-arrow.png') top left no-repeat;
+    position: absolute;
+    top: -2px;   
+}
+
+#sve .SveSousParent .closeSve a{
+	background: url('../images/bt_close_black.png') top right no-repeat !important;
+	position: absolute;
+  z-index: 1;
+  right: 0;
+  top: -2px;
+}
+
+.contentSve .formContact{
+	clear: both;
+	padding-top: 9px;
+}
+
+.contentSve .formContact .closeSveForm a{
+	background: url('../images/bt_close_black.png') top right no-repeat;
+	background: url('../images/bt_close_black.png') top right no-repeat;
+  width: 15px;
+  height: 16px;
+  display: block;
+  float: right;
+}
+
+#sve .contentSve{
+    margin-top: 34px;
+}
+
+
+#sve .contentSve .itemSve{
+	word-wrap: break-word;
+}
+
+#sve .contentSve .bouton_affiner{
+    display: table;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    width: 50%;
+    float: left;
+}
+
+#sve .contentSve .bouton_affiner .layout-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+#sve .contentSve .bouton_affiner .layout-wrapper .layout-content {
+    display: inline-block;
+    text-align: center; 
+    min-width: 90px;
+    max-width: 270px;
+    padding: 5px;
+}
+
+#sve .contentSve .bouton_affiner .layout-wrapper .layout-content a{
+    width: 100%;
+    display: inline-block;
+    text-decoration : none;
+}
+
+#sve .contentSve .bouton_affiner .layout-wrapper .layout-content .shadow{
+    display : none;
+}
+
+#sve iframe{
+	 		border:none;
+	 		width:100%; 
+	 		height:1280px;
+	 		display: block;
+}
+
+
+.sve_complementaire .table {display:table;border-collapse:separate;border-spacing:18px 10px; margin: 0 5px 0 -17px;}
+.sve_complementaire .row {display:table-row;}
+.sve_complementaire .footer{	
+	display:block;
+	padding-left: 50px;
+	margin: 0px 22px 0 0px;
+}
+
+.sve_complementaire .cell {
+	display:table-cell;
+    margin: 5px 20px 15px 0; 
+	background-color: #ffffff;
+	padding: 10px;
+	width: 50%;
+}
+
+.sve_complementaire .bloc2{
+	background: #ffffff url('../images/picto-telephone.png') 90% 100% no-repeat;	
+}
+
+.sve_complementaire .cell .info{
+	font-size: 10px;
+}
+
+.sve_complementaire .cell, .sve_complementaire .footer{
+	border: 1px solid #e1e1e1;
+}
+.sve_complementaire .cell h2{	
+    text-align:center;
+}
+
+.sve_complementaire .cell .download {
+    background: none;
+}
+
+.sve_complementaire .cell img{
+	display: block;
+    margin-left: auto;
+    margin-right: auto; 
+    padding-top: 21px;
+}
+.sve_complementaire .cell-footer { 
+    display: inline-block;
+}
+
+.sve_complementaire .descrip{
+	padding: 0 10px;
+  margin: 5px 0;  
+  width: 75%;
+}

@@ -1,0 +1,519 @@
+/**
+Par d�faut, on cache l'affichage du disclaimer
+On l'affiche si le cookie est absent
+*/
+
+function EventManager() {
+    var $this = this;
+    $this.events = {};
+
+    $this.addEvent = function (eventName, callable) {
+        if (typeof callable === "function") {
+            $this.events[eventName] = callable;
+        } else {
+            console.error('The callable parameter is not callable');
+            return;
+        }
+    };
+    $this.loadEvent = function (eventName, options) {
+        if (!$this.eventExist(eventName)) {
+            console.error('Event doesn\'t exist');
+            return;
+        }
+        $this.events[eventName](options);
+    };
+    $this.eventExist = function (eventName) {
+        return eventName in $this.events;
+    };
+    $this.deleteEvent = function (eventName) {
+        delete $this.events[eventName];
+    }
+}
+
+/*
+ *  JS pour la modale RGPD : gestion des cookies USER
+ */
+/**
+ * Affichage de la modal RGPD
+ */
+window.openRGPDModal = function () {
+    jQuery('#popin-rgpd').removeClass('hide');
+    jQuery('html, body').addClass('hasModal');
+
+    // Les RGAA recommandent de mettre en place le focus sur le premier champs du formulaire de la popin
+    jQuery('#popin-rgpd fieldset:first-child input[type="checkbox"]').first().focus();
+
+    // Soumission du formulaire RGPD
+    jQuery('#popin-rgpd form').on('submit', function(e) {
+        e.preventDefault();
+        var data = jQuery(this).serializeArray();
+        var _RGPDCookie = RGPDManager.getCookie().resetAuthorisations();
+
+        data.forEach(function (element) {
+            _RGPDCookie.addAuthorisation(element.value);
+        });
+
+        RGPDManager.saveCookie(_RGPDCookie);
+
+        jQuery('#popin-rgpd, #topbar-cookie-container').hide();
+
+        location.reload();
+    });
+};
+
+/**
+ * Gestion de la modal RGPD
+ */
+(function ($) {
+    $(document).ready(function () {
+
+        /* Gestion de la fermeture de la popin rgpd */
+        var popin_rgpd = $('#popin-rgpd');
+
+        // Evènement sur la zone d'ombrage de la popin
+        popin_rgpd.click(function (e) {
+            if (e.target !== this) {
+                return;
+            }
+            $(this).find('[data-action="close"]').click();
+        });
+
+        // Action sur le bouton de fermeture de la popin
+        popin_rgpd.find('[data-action="close"]').click(function () {
+            popin_rgpd.addClass('hide');
+            $('html, body').removeClass('hasModal');
+            /* On replace le focus sur le lien d'ouverture de popin du disclaimer cookie */
+            $('#cookie-hyperion').find("a[href='javascript:openRGPDModal()']").focus();
+        });
+
+
+        /* Gestion du focus tournant
+        *  Si only TAB sur le bouton submit alors focus sur le bouton close
+        *  Si SHIFT + TAB sur le bouton close alors focus sur le bouton submit
+        * */
+        popin_rgpd.find('[data-action="submit"]').keydown(function (e) {
+            if ($("this:focus") && (e.which === 9) && (!e.shiftKey)) {
+                e.preventDefault();
+                $('#popin-rgpd').find('[data-action="close"]').focus();
+            }
+        });
+
+        popin_rgpd.find('[data-action="close"]').keydown(function (e) {
+            if ($("this:focus") && (e.which === 9) && (e.shiftKey)) {
+                e.preventDefault();
+                $('#popin-rgpd').find('[data-action="submit"]').focus();
+            }
+        });
+    });
+})(jQuery);
+
+
+window.eventManager = new EventManager();
+
+jQuery(function(){
+
+    /**
+	 * TODO à mettre à jour dans #RGPDLot2
+     */
+	jQuery('#topbar-cookie-container').hide();
+	var disclaimerCookie = lire_cookie("cookie_ministere");
+	if(disclaimerCookie == null && !RGPDManager.issetCookie()){
+		jQuery('#topbar-cookie-container').show();
+		var heightTopbar = jQuery('#topbar-cookie').height();
+	jQuery('#topbar-cookie-container').css("margin-bottom", heightTopbar);
+	}
+
+	//pour scroller au niveau du formulaire du bloc SVE.
+	if ($_GET('ancre')!= null) {
+		jQuery('html, body').stop().animate({scrollTop: jQuery("#"+$_GET('ancre')).offset().top}, 10 );
+	}
+
+	var blocSve = jQuery("#sve");
+
+	if(blocSve.length){
+		var ancres = location.hash.replace('#','');
+		if(ancres){
+		  var paramPreview = GetURLParameter('preview');
+			var url = location.pathname.substring(1).split("/");
+			var pids = url[0].replace('pid','');
+
+			if (jQuery.isFunction(jQuery.fn.data)) {
+				var znTemplateId = jQuery("#sve").data('ztid');
+				var  znTemplateModId = jQuery("#sve").data('ztmid');
+				var  znItemId = jQuery("#sve").data('itemid');
+			}else{
+				var znTemplateId = jQuery("#sve").attr('data-ztid');
+				var  znTemplateModId = jQuery("#sve").attr('data-ztmid');
+				var  znItemId = jQuery("#sve").attr('data-itemid');
+			}
+
+			jQuery.get("/ajax/ajax_remontee_parcours_sve.php",{ancre:ancres, pid:pids,ZONE_TEMPLATE_ID:znTemplateId ,ZONE_TEMPLATE_MOD_ID:znTemplateModId, ITEM_ID:znItemId, preview:paramPreview, modeAjax:true}, function( data , status){
+					if (data.length > 0) {
+                        $( "#sve" ).replaceWith(data);
+                        initSVEitem();
+                        if (jQuery.isFunction(jQuery.fn.data)) {
+                            if(jQuery("#sve").data("xtmed")){
+                                eval(jQuery("#sve").data("xtmed"));
+                            }
+                        }else{
+                            if(jQuery("#sve").attr('data-xtmed')){
+                                eval(jQuery("#sve").attr('data-xtmed'));
+                            }
+                        }
+                    }
+				});
+		}else{
+			initSVEitem();
+		}
+	}else{
+		initSVEitem();
+	}
+
+	function GetURLParameter(sParam){
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++){
+    var sParameterName = sURLVariables[i].split('=');
+    	if (sParameterName[0] == sParam){
+    		return sParameterName[1];
+			}
+		}
+	}
+
+
+
+	function initSVEitem(){
+
+		jQuery(".itemSve .lien").click(function(e){
+			var link = jQuery(this);
+			e.preventDefault();
+	    	var parametreGet = jQuery(this).attr('href').match(/\?.*$/);
+			var parametreGetString = jQuery.parseQuery(parametreGet[0]);
+			parametreGetString['modeAjax'] = 1;
+			//var parametreGetString = parametreGet[0].replace('?','').split('&').reduce(function(s,c){var t=c.split('=');s[t[0]]=t[1];return s;},{})	;
+			jQuery.get("/ajax/ajax_remontee_parcours_sve.php",parametreGetString, function( data , status){
+				jQuery( "#sve" ).replaceWith(data);
+				location.hash = parametreGetString.ancre;
+				initSVEitem();
+				if (jQuery.isFunction(jQuery.fn.data)) {
+					if(jQuery(link).data("xtmed")){
+						eval(jQuery(link).data("xtmed"));
+					}
+				}else{
+					if(jQuery(link).attr("data-xtmed")){
+						eval(jQuery(link).attr("data-xtmed"));
+					}
+
+				}
+
+			});
+		});
+
+		jQuery(".closeSveForm a").click(function(e){
+	    e.preventDefault();
+	    var parametreGet = jQuery(this).attr('href').match(/\?.*$/);
+
+	    if(parametreGet === null){
+	    	window.location.replace(window.location.href);
+	    }else{
+
+				var parametreGetString = jQuery.parseQuery(parametreGet[0]);
+				jQuery.get("/ajax/ajax_remontee_parcours_sve.php",parametreGetString, function( data ) {
+					jQuery( "#sve" ).replaceWith(data );
+				 	location.hash = parametreGetString.ancre;
+					initSVEitem();
+				});
+			}
+		});
+
+
+		jQuery(".closeSve a").click(function(e){
+			var link = jQuery(this);
+	    e.preventDefault();
+	    var parametreGet = jQuery(this).attr('href').match(/\?.*$/);
+
+	    if(parametreGet === null){
+	    		if(location.hash){
+	    		var url_redirect = window.location.href.replace(location.hash, '');
+	    	}	else{
+				var url_redirect = window.location.origin + window.location.pathname;
+	    	}
+	    	window.location.replace(url_redirect);
+	    }else{
+
+				var parametreGetString = jQuery.parseQuery(parametreGet[0]);
+				jQuery.get("/ajax/ajax_remontee_parcours_sve.php",parametreGetString, function( data ) {
+					$( "#sve" ).replaceWith(data );
+					location.hash = parametreGetString.ancre;
+					initSVEitem();
+					if (jQuery.isFunction(jQuery.fn.data)) {
+						if(jQuery(link).data("xtmed")){
+							eval(jQuery(link).data("xtmed"));
+						}
+					}else{
+						if(jQuery(link).attr("data-xtmed")){
+							eval(jQuery(link).attr("data-xtmed"));
+						}
+					}
+
+				});
+			}
+		});
+
+		jQuery(".bouton_affiner a").click(function(e){
+			e.preventDefault();
+	    var parametreGet = jQuery(this).attr('href').match(/\?.*$/);
+			var parametreGetString = jQuery.parseQuery(parametreGet[0]);
+			jQuery.get("/ajax/ajax_remontee_parcours_sve.php",parametreGetString, function( data ) {
+				$( "#sve" ).replaceWith(data );
+				location.hash = parametreGetString.ancre;
+				initSVEitem();
+                if (window.eventManager.eventExist('showSVEForm')) {
+                    window.eventManager.loadEvent('showSVEForm');
+				}
+			});
+			if (jQuery.isFunction(jQuery.fn.data)) {
+				if(jQuery(this).data("xtclick")){
+					eval(jQuery(this).data("xtclick"));
+				}
+			}else{
+				if(jQuery(this).attr("data-xtclick")){
+					eval(jQuery(this).attr("data-xtclick"));
+				}
+			}
+
+		});
+	}
+
+});
+
+/** Récupérer les paramétrés dans l'url **/
+function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace(
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
+		}
+	);
+
+	if ( param ) {
+		return vars[param] ? vars[param] : null;
+	}
+	return vars;
+}
+
+/**
+Masque la barre d'affichage pour cookie
+*/
+function disclaimer_cookie(){
+	jQuery('#topbar-cookie-container').hide();
+	createcookie();
+}
+/**
+Fonction qui g�n�re le cookie
+*/
+function createcookie(){
+	var name = "cookie_ministere";
+	var value = "disclaimer_cookie";
+	var now = new Date();
+	var time = now.getTime();
+	time += 365 * 24 * 3600 * 1000;
+	now.setTime(time);
+	var expires = now.toUTCString();
+	document.cookie = name+"="+value+"; expires="+expires+"; path=/";
+}
+/**
+ * Fonction qui lit un cookie donn�
+ * @deprecated
+*/
+function lire_cookie(nom) {
+  var arg=nom+"=";
+  var alen=arg.length;
+  var clen=document.cookie.length;
+  var i=0;
+  while (i<clen){
+    var j=i+alen;
+    if (document.cookie.substring(i, j)==arg)
+       return arguments_cookies(j);
+    i=document.cookie.indexOf(" ",i)+1;
+    if (i==0) break;
+  }
+  return null;
+}
+function arguments_cookies(offset){
+  var endstr=document.cookie.indexOf (";", offset);
+  if (endstr==-1) endstr=document.cookie.length;
+  return unescape(document.cookie.substring(offset, endstr));
+}
+
+/**
+ * Structure d'instance pour le cookie RGPD
+ * @constructor
+ */
+window.RGPDCookie = function() {
+
+  /**
+   * Liste des services autorisés
+   * @type {{}}
+   */
+    this.authorisations = {};
+
+  /**
+   *  Ajout une autorisation dans le cookie
+   * @param serviceName string Nom du service à autoriser
+   * @returns {RGPDCookie}
+   */
+    this.addAuthorisation = function(serviceName) {
+        this.authorisations[serviceName] = true;
+        return this;
+    };
+
+  /**
+   *  Determine si un service est autorisé ou non
+   * @param serviceName string Nom du service à tester
+   * @returns {boolean|*}
+   */
+    this.isAuthorised = function(serviceName) {
+        return this.authorisations[serviceName] !== undefined && this.authorisations[serviceName];
+    };
+
+  /**
+   * Réinitialise les autorisations
+   * @returns {RGPDCookie}
+   */
+    this.resetAuthorisations = function() {
+        this.authorisations = {};
+        return this
+    };
+
+  /**
+   * Transforme l'instance en un chaine de caractères
+   * @returns {string}
+   */
+    this.serialize = function () {
+        var tmpData = [];
+
+        if (this.authorisations) {
+            for (var authorisationId in this.authorisations) {
+                var authorisationValue = this.authorisations[authorisationId];
+                tmpData.push(authorisationId+":"+authorisationValue);
+            }
+        }
+
+        return tmpData.join('|');
+    };
+
+  /**
+   * Insére des données dans le cookie grâce à une chaine de caractères
+   * @param serialized
+   */
+    this.unserialize = function (serialized) {
+        var tmpAuthorisation = serialized.split('|');
+
+        for (var key in tmpAuthorisation) {
+            var currentPart = tmpAuthorisation[key].split(':');
+            this.authorisations[currentPart[0]] = currentPart[1] !== undefined ? currentPart[1] == 'true' : false;
+        }
+    };
+
+};
+
+/**
+ * Gestionnaire du cookie RGPD
+ * @type {{cookieName: string, issetCookie: Window.RGPDManager.issetCookie, saveCookie: Window.RGPDManager.saveCookie, getCookie: Window.RGPDManager.getCookie}}
+ */
+window.RGPDManager = {
+
+  /**
+   * Nom du cookie
+   */
+	cookieName: 'CONSENT_RGPD',
+
+  /**
+   * Durée de vie du cookie 365jours (durée légale)
+   */
+	cookieLifeTime: 365,
+
+  /**
+   * Vérifie si le cookie RGPD existe ou non
+   * @returns {*}
+   */
+	issetCookie: function() {
+		return cookieManager.issetCookie(this.cookieName);
+	},
+
+  /**
+   * Sauvegarde le cookie RGPD
+   * @param RGPDcookie {RGPDCookie} Instance de RGPDCookie à sauvegarder
+   */
+	saveCookie: function (RGPDcookie) {
+		cookieManager.setCookie(this.cookieName, RGPDcookie.serialize(), this.cookieLifeTime);
+    },
+
+  /**
+   * Récupère une instance RGPDCookie des cookies
+   * @returns {RGPDCookie}
+   */
+	getCookie: function () {
+		var response = new RGPDCookie();
+		var cookieContent = cookieManager.getCookie(this.cookieName);
+
+		if (cookieContent) {
+			response.unserialize(cookieContent);
+		}
+
+		return response;
+    }
+
+};
+
+/**
+ * Gestionnaire de cookies
+ * @type {{setCookie: Window.cookieManager.setCookie, getCookie: Window.cookieManager.getCookie, issetCookie: Window.cookieManager.issetCookie}}
+ */
+window.cookieManager = {
+
+  /**
+   * Défini un cookie
+   * @param name string Nom du cookie
+   * @param value string Valeur du cookie
+   * @param expiration int Date d'expiration du cookie
+   */
+	setCookie: function (name, value, expiration) {
+        var d = new Date();
+        d.setTime(d.getTime() + (expiration*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    },
+
+  /**
+   * Récupére un cookie
+   * @param name string Nom du cookie à récupérer
+   * @returns {*}
+   */
+	getCookie: function (name) {
+        name = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return null;
+    },
+
+  /**
+   * Vérifie si un cookie existe
+   * @param name string Nom du cookie à vérifier
+   * @returns {boolean}
+   */
+	issetCookie: function (name) {
+		return this.getCookie(name) != null;
+    }
+};

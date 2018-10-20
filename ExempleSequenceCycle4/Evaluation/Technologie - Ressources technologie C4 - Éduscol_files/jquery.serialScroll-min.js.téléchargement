@@ -1,0 +1,9 @@
+/**
+ * jQuery.serialScroll - Animated scrolling of series
+ * Copyright (c) 2008 Ariel Flesler - aflesler(at)gmail(dot)com
+ * Licensed under GPL license (http://www.opensource.org/licenses/gpl-license.php).
+ * Date: 2/11/2008
+ * @author Ariel Flesler
+ * @version 1.0.0
+ **/
+;(function($){var i=$.serialScroll=function(a){$.scrollTo.window().serialScroll(a)};i.defaults={duration:1e3,axis:'x',event:'click',start:0,step:1,lock:1,cycle:1};$.fn.serialScroll=function(l){l=$.extend({},i.defaults,l);var a=l.event,b=l.step,c=l.duration/b;return this.each(function(){var d=$(this),f=$(l.items,d),g=l.start,h=f.length;if(l.force)j(g);$(l.prev||[]).bind(a,-b,k);$(l.next||[]).bind(a,b,k);if(l.jump)f.bind(a,function(e){e.data=f.index(this);j(e,this)});function k(e){e.data+=g;j(e,this)};function j(e,a){var b=a?e.data:e;if(a)e.preventDefault();if(l.lock&&d.is(':animated')||!l.cycle&&(b<0||b>=h))return;b%=h;if(b<0)b+=h;if(l.stop)d.queue('fx',[]).stop();var i=f[b];if(l.onBefore&&a)l.onBefore.call(a,e,i,d);l.duration=c*Math.abs(g-b);d.scrollTo(i,l);g=b}})}})(jQuery);

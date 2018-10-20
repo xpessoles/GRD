@@ -1,0 +1,179 @@
+#menu-accessibilite,
+#tab-roll,
+#menu-access-direct,
+#recherche,
+#menu-navigation,
+#megadropdown,
+#boite-outils,
+/*#navigation-right,*/
+#navigation-left,
+#link-edu-gouv,
+#footer #liens,
+#footer .haut,
+#footer #infos ul,
+#print
+	{display:none}
+
+/*#header, #container,*/ #footer {width:100%}
+
+#menu-onglets, 
+#newsletter, 
+#footer #logos, 
+#footer #infos ul{
+    display:none;
+}
+
+#header .bg-lightgrey, #container.bg-lightgrey, #footer.bg-lightgrey,
+.alacune-wrap {background: none transparent}
+
+.alacune-wrap .mise-en-avant {overflow:hidden}
+	
+body, #body-bg-left, #body-bg-right{background:none !important;}
+/*div#content{width:auto !important}*/
+
+#header,#container,#content,#footer{border:0}
+
+/*#footer{margin:0 !important}*/
+#footer .haut{padding:0 20px !important}
+
+.divers.width-300{width:48% !important}
+.ed_encadre.width-300{width:48% !important;margin:0 0 0 3% !important}
+
+#logo-identite {margin-top:20px;} 
+#container {min-height:0;}
+.border-grey {
+    border: 1px solid #C8C8C8 !important;
+}
+
+/* 2012-06-29 TMA 192900 */
+#navigation-right{display:none;}
+#header, #container{width:800px;} /* Masquage barre droite autres pages */
+
+/* 2012-07-04 TMA 204882 */
+.ff #header, .ff #container{width:auto;} /* pas de centrage sous firefox, seul IE en a besoin, et chrome gère tout seul */
+.ff #container #content{width:620px;} /* limite width pour pas tronquer le texte à droite */
+.ff .webtv_edus #container #content{width:688px;}
+.ff .width-292{width:258px;}
+
+
+/* 2012-07-10 */
+.ff #container, .ff #container #content .cadre, .ff #container .top-col-left .cadre{overflow:visible;}
+
+/* 2013-02-28 TMA 204882 */
+.ie7 #webtv_chainesthemes {
+	position:relative; top:0px; left:0px;
+}
+.ie7 #container #content #webtv_chainesthemes h2, 
+.ie7 #container #content #webtv_memethematique h2 {
+	position:relative; top:0px; left:0px;
+}
+.ie7 #webtv_chainesthemes ul.liste_chaines li span, 
+.ie7 #webtv_memethematique ul.liste_chaines li span {
+	position:relative; top:0px; left:0px;
+}
+.ie7 #webtv_chainesthemes ul.liste_chaines li a, 
+.ie7 #webtv_memethematique ul.liste_chaines li a {
+	position:relative; top:0px; left:0px;	
+}
+.ie7 #container #content #webtv_tousThemes,
+.ie7 #container #content .webtv_tousThemes_file_gauche {
+	background:#FFFFFF;
+}
+.ie7 #container #content #webtv_mediasRecents a.bt_up
+.ie7 #container #content #webtv_mediasRecents a.bt_down {
+	display:none;
+}
+.ie7 #container #content #webtv_tousThemes ul.liste_tousThemes {
+	position:relative !important;
+}
+
+/*
+#container {
+	page-break-inside: auto;
+	border:1px solid green;
+	zoom:1;
+	overflow:visible;
+	 widows: 3;
+    orphans: 3;
+}
+#container .cadre {
+	margin:0px;
+}
+.remonte_ed_rub_100{
+	border:1px solid yellow;
+	overflow:visible;
+	page-break-inside: auto;
+	page-break-before: auto;
+  	page-break-after: auto;
+  	margin-top:0px !important;
+	padding-top:0px !important;
+	margin-bottom:0px !important;
+	padding-bottom:0px !important;
+	display:block;
+	clear:auto;
+	
+}
+/* 
+#container .float-left{
+	float:none;
+	overflow:hidden;
+	clear:both;
+}*/
+/*
+.font-grey, h3{
+ page-break-before: avoid;
+  page-break-after: avoid;
+}
+/*
+#container #content .cadre{
+overflow:visible!important;
+float:left;
+clear:left;
+border:1px solid red;
+padding:0px;
+margin:0px;
+}*/ 
+
+
+/*Refonte WebTV 2014-06-23*/
+#webtv_player_playlist #webtv_playlist,
+#webtv_player_playlist .jScrollPaneContainer,
+#webtv_toutes_videos,
+#webtv_tousThemes,
+.webtv_rub_th .remontee_parametree{
+	display:none;	
+}
+#webtv_player{
+	width:686px;
+	background:none;
+	border: none;
+	border-bottom: 1px solid #d0d0d0;	
+}
+#webtv_player_playlist{
+	background:none;	
+}
+#webtv_player #flashplayer_container_wrapper,
+#webtv_player #flashplayer_container{
+	/*width:682px !important;
+	height:383px !important;*/
+	display:none !important;
+}
+.video_in_print{
+	margin-left:0;
+	display:block;
+}
+#webtv_player_content{
+	padding:15px 0;	
+}
+.webtv_edus .chapo.padding-left-10,
+.webtv_rub_th .chapo.padding-left-10{
+	padding-left:0;
+} 
+.webtv_edus #chemin-fer,
+.webtv_rub_th #chemin-fer{
+	width:688px;
+	margin:0 20px;
+	padding:10px 0 0;
+}
+/* 2015-05-20 #307921 */
+#topbar-cookie-container{display:none !important;}
