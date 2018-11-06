@@ -1,0 +1,52 @@
+Regarder les cartes mentales (Chercher licence mindview).
+Cartes mentales libres. 
+
+
+Progression annuelles sur 3 ans. 
+Proposer une séquence par période (entre deux vacances ou par trimestre)
+Activité papier : 
+Freeplane(austère), 
+xmind (gratuit et sympa)
+
+Séance 1 : 
+ * Objectif gérer sa classe (Notion de situation déclenchante et de timing de la séannce, travail en ilot). 
+ * Proposer une séance de 1h (Plus 30min éventuellement) 
+ * Découverte système simple - Tout sur papier.  (drone, sphero, bb8, 3 contenus pour 3 niveaux (5e, 4e, 3e))
+ * Ressources disciplinaires sur CE/CI. Fonctions techniques et solutions associées. 
+ * 
+
+2 niveaux (débutant, approfondi). 
+
+TO DO XP : 
+ * Ressources disciplinaires sur la chaine d'énergie chaine d'information. 
+ * Energétique
+ * Informatique (réseau + programmation). 
+ * 
+
+
+Production à faire :
+ * Progression pédagogique par séquence.
+ * 1 séance de survie
+ * 1 séquence par trimestre
+
+Proposition de fiches par une entrée système (analyse système, de la fonction à la solution technique). 
+Approche MEI. 
+
+
+Séquence à développer 
+ * 5ème : S4, S5, S9 (sécuriser, éclairer, conteneur, écalairage)
+ * 4ème : énergétique d'un batiment ? S17 Comment programmer un portail auto. S18 Comment améliorer la sécurité....
+ * 3ème : Robotique : analyse structurelle, conception mécatronique, fabrication additive. 
+
+
+1 Séquence =
+ * Fiche de séquence (Méthode pédagogique, compétences développées...).
+ * 3x Fiche de séance (compétences, accueil, appel, timings...). 
+ * 3x Présentation prof (dépend de la stratégie pédagogique). 
+ * 3x Qu'est ce qu'il reste dans le classeur de l'élève
+ * évaluation.
+
+
+Comment construire une séquence pédagogique ? (Lien avec le programme, doc d'accompagnement, stratégies pédagogiques). 
+
+Prospection du matériel ?
